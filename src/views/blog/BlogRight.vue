@@ -43,6 +43,7 @@ import {
   newArticle,
   deleteArticle,
   updateArticleContent,
+  getArticleDetailById,
 } from "../../apis/blog/article";
 import { reactive, toRefs, onMounted, watch, inject } from "vue";
 import ArticleList from "./ArticleList.vue";
@@ -122,14 +123,9 @@ export default {
       });
     };
 
-    const editArticle = (item) => {
-      data.curArticle = item;
-      data.curpage = 1;
-    };
-
     const saveContent = (value) => {
       console.log("value:", value);
-      data.curpage = 0;
+
       let param = {};
       param.content = value;
       param.id = data.curArticle.id;
@@ -140,19 +136,46 @@ export default {
             msg: "保存成功",
           });
           data.curArticle.content = value;
-          data.curpage = 0;
+          // data.curpage = 0;
         })
         .catch((error) => {
           popup({
             title: "失败",
             msg: "保存失败：" + error,
           });
+          data.curpage = 0;
         });
     };
 
+    const editArticle = (item) => {
+      getArticleContent(item).then(result => {
+        data.curpage = 1;
+        data.curArticle = result;
+      });
+    };
+
     const toArticle = (item) => {
-      data.curpage = 2;
-      data.curArticle = item;
+      getArticleContent(item).then(result => {
+        data.curpage = 2;
+        data.curArticle = result;
+      });
+    };
+
+    const getArticleContent = (item) => {
+      return new Promise((resolve, reject) => {
+        let articleid = item.id;
+        getArticleDetailById(articleid)
+          .then((result) => {
+            if (result.length > 0) {
+              resolve(result[0]);
+            } else {
+              reject("未获取到文章详情")
+            }
+          })
+          .catch((error) => {
+            reject("获取文章详情失败！error：", error)
+          });
+      });
     };
 
     const backToArtList = () => {
@@ -172,8 +195,10 @@ export default {
     const getArticles = () => {
       var catalogId = props.catalog.id;
       const param = {};
-      param.catalogid = catalogId;
-      param.limit = 10;
+      if (catalogId) {
+        param.catalogid = catalogId;
+      }
+      param.limit = 100;
       param.offset = 0;
 
       getArticleByCatalogId(param)
@@ -185,7 +210,9 @@ export default {
         });
     };
 
-    onMounted(() => {});
+    onMounted(() => {
+      getArticles();
+    });
 
     return {
       ...toRefs(data),
@@ -207,13 +234,7 @@ export default {
   height: 100%;
   overflow: auto;
 }
-/* .blog-right-head {
-  height: 40%;
-  border-bottom: 1px solid #f5f5f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
+
 .article-operation {
   padding: 0.5rem 1.5rem;
   border-bottom: 1px solid #f5f5f5;

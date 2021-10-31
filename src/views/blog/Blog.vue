@@ -31,16 +31,16 @@ export default {
 <style>
 #Blog {
   display: flex;
-  height: 100%;
+  height: 99%;
 }
 .left-content {
-  background-color: #f9f9f9;
+  background-color: #f2f2f2;
   width: 20%;
   height: 100%;
   overflow: auto;
 }
 .right-content {
-  background-color: #fff;
+  background-color: #f2f2f2;
   width: 80%;
   height: 100%;
 }

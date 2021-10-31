@@ -1,15 +1,13 @@
-// const axios = require('axios')
 import axios from 'axios'
 
 // axios.defaults.baseURL = 'http://127.0.0.1:3030'
 axios.defaults.baseURL = '/api'
 axios.defaults.timeout = 5000
 axios.defaults.withCredentials = true
+//axios.defaults.transformRequest = data => JSON.stringify(data)
 
-axios.defaults.headers['Content-Type'] = 'application/json'
-axios.defaults.transformRequest = data => JSON.stringify(data)
+const instance = axios.create({headers: {"Content-Type": "application/json"}});
 
-const instance = axios.create();
 // 设置请求拦截器
 instance.interceptors.request.use(config => {
     // 拦截操作

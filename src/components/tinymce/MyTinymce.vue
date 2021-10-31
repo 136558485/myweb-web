@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 import Editor from "@tinymce/tinymce-vue";
 //引入node_modules里的tinymce相关文件文件
 import tinymce from "tinymce/tinymce"; //tinymce默认hidden，不引入则不显示编辑器
@@ -115,37 +116,36 @@ export default {
       paste_data_images: true, //图片是否可粘贴
 
       images_upload_handler: (blobInfo, success, failure) => {
+        console.log("开始上传文件。。。")
         if (blobInfo.blob().size / 1024 / 1024 > 2) {
           failure("上传失败，图片大小请控制在 2M 以内");
         } else {
           let params = new FormData();
           params.append("file", blobInfo.blob());
-          let config = {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          };
-          context.$axios
-            .post(`${api.baseUrl}/api-upload/uploadimg`, params, config)
-            .then((res) => {
-              if (res.data.code == 200) {
-                success(res.data.msg); //上传成功，在成功函数里填入图片路径
-              } else {
-                failure("上传失败");
-              }
-            })
-            .catch(() => {
-              failure("上传出错，服务器开小差了呢");
-            });
+          const instance = axios.create();
+          instance.post('/uploadImg', params).then(res => {
+            console.log("res.data:", res.data);
+            success(res.data);
+            console.log("result:", result);
+          }).catch(error => {
+            console.log("error:", error);
+            failure("上传出错，服务器开小差了呢");
+          })
         }
       },
-      // contentValue: props.value
     });
 
     watch(
       () => data.contentValue,
       (value) => {
+        if(!value) {
+          // 第一次执行的之后，value为空，先初始化
+          value = data.contentValue
+        }
         context.emit("save-content", value);
+      },{
+        // watch声明之后，先执行一次，初始化提交value的值，这里也可以吧初始化的操作写到onMounted
+        immediate:true
       }
     );
 

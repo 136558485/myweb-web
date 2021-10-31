@@ -4,6 +4,7 @@
       <top-list></top-list>
     </tab-bar>
     <div id="content">
+      <div class="blank-space"></div>
       <router-view></router-view>
     </div>
   </div>
@@ -23,7 +24,7 @@ body {
   padding: 0;
   margin: 0;
 }
-body button{
+body button {
   background-color: rgb(60, 195, 248);
   color: #fff;
   border: 0;
@@ -31,14 +32,14 @@ body button{
   font-size: 1.1rem;
   padding: 3px 10px;
 }
-body button:hover{
+body button:hover {
   background-color: rgb(118, 194, 245);
 }
 
-body ::-webkit-scrollbar{
+body ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  background-color:#f5f5f5;
+  background-color: #f5f5f5;
 }
 
 body ::-webkit-scrollbar-track {
@@ -47,16 +48,20 @@ body ::-webkit-scrollbar-track {
   background-color: #f5f5f5;
 }
 
-body ::-webkit-scrollbar-thumb{
+body ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #dceffa;
 }
 
-
 #content {
-  background-color: azure;
-  margin-top: 50px;
+  /* background-color: azure; */
+  /* margin-top: 50px; */
   height: calc(93vh);
+}
+
+.blank-space {
+  width: 100%;
+  height: 8%;
 }
 </style>

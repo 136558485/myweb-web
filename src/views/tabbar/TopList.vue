@@ -3,8 +3,8 @@
     <div class="home" @click="clickItem('/home')"><a>首页</a></div>
     <div class="items">
       <ul>
-        <li @click="clickItem('/intro')"><a>简历</a></li>
-        <li @click="clickItem('/mind')"><a>思维导图</a></li>
+        <!-- <li @click="clickItem('/intro')"><a>简历</a></li>
+        <li @click="clickItem('/mind')"><a>思维导图</a></li> -->
         <li @click="clickItem('/blog')"><a>博客</a></li>
       </ul>
     </div>

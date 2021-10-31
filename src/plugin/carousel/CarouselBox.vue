@@ -7,10 +7,21 @@
         :key="item.id"
         :class="{ fade: index === i }"
         @mouseenter="stop"
-        @mouseleave="start"
-      >
-        <div>{{ item.title }}</div>
-        <img :src="item.imgsrc" />
+        @mouseleave="start">
+        <!-- <div>{{ item.title }}</div>
+        <img :src="item.imgsrc" /> -->
+        <div class="art-carousel">
+          <div class="art-title">
+            <a @click="toArticleWin(item)" class="title-text">{{ item.title }}</a>
+          </div>
+          <div class="art-summary">
+            <span>{{ item.summary }}</span>
+          </div>
+          <div class="art-info">
+            <span class="art-author">{{ item.author }}</span>
+            <span class="art-createdate" style="margin-left: 10px">{{ item.createdate }}</span>
+          </div>
+          </div>
       </li>
     </ul>
     <a @click="toggle(-1)" class="carousel-btn pre">&#139</a>
@@ -22,6 +33,7 @@
 </template>
 <script>
 import { reactive, toRefs, watch } from "vue";
+import { useRouter } from "vue-router"
 export default {
   name: "CarouselBox",
   props: {
@@ -31,6 +43,18 @@ export default {
     const data = reactive({
       index: 0,
     });
+
+    const router = useRouter();
+
+    const toArticleWin = item => {
+      const href  = router.resolve({
+        name: "Article",
+        path: "/article",
+        query: {articleid: item.id}
+      });      
+      window.open(href.href, '_blank')
+
+    }
 
     const toggle = (opFlag) => {
       if (opFlag === -1 && data.index > 0) {
@@ -59,9 +83,9 @@ export default {
       }, 3000);
     };
 
-    const toThisItem = curIndex => {
-      data.index = curIndex
-    }
+    const toThisItem = (curIndex) => {
+      data.index = curIndex;
+    };
 
     let timer = null;
     watch(
@@ -81,15 +105,16 @@ export default {
       toggle,
       stop,
       start,
-      toThisItem
+      toThisItem,
+      toArticleWin
     };
   },
 };
 </script>
 <style>
 .carousel-box {
-  height: 90%;
-  width: 50%;
+  height: 100%;
+  width: 100%;
   background-color: #f9f9f9;
   position: relative;
 }
@@ -108,7 +133,7 @@ export default {
   transition: opacity 0.5s linear;
 }
 
-.carousel-item img {
+/* .carousel-item img {
   width: 100%;
   height: 100%;
 }
@@ -118,7 +143,7 @@ export default {
   top: 0;
   bottom: 0;
   color: #f9f9f9;
-}
+} */
 
 .carousel-box .fade {
   opacity: 1;
@@ -172,5 +197,26 @@ export default {
 
 .carousel-indicator .active {
   background-color: blanchedalmond;
+}
+
+.art-carousel {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.art-title {
+  height: 20%;
+}
+
+.art-summary {
+  height: 20%;
+}
+
+.art-info {
+  height: 20%;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
