@@ -35,13 +35,14 @@ export default {
 }
 .left-content {
   background-color: #f2f2f2;
-  width: 20%;
+  width: 18%;
   height: 100%;
   overflow: auto;
+  border-right: 2px solid #8a8383;
 }
 .right-content {
   background-color: #f2f2f2;
-  width: 80%;
+  width: 82%;
   height: 100%;
 }
 </style>

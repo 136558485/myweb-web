@@ -123,10 +123,11 @@ export default {
         let param = { id: id };
         deleteCatalog(param)
           .then((result) => {
-            popup({
-              title: "成功",
-              msg: "删除成功！",
-            });
+            if(result.code === 1){
+              popup({ title: "失败", msg: result.errmsg });
+              return;
+            }
+            popup({ title: "成功", msg: "删除成功！", });
             getCatagorys();
           })
           .catch((error) => {
@@ -160,9 +161,9 @@ export default {
 
 .item-operation {
   padding: 10px 20px;
-  /* color: #377de6; */
   display: flex;
   justify-content: space-between;
+  border-bottom: 2px solid #8a8383;
 }
 
 .catalog-icon {

@@ -23,6 +23,11 @@ export default {
     padding: 10px 0;
     border-bottom: 1px solid #f5f5f5;
 }
+
+#article-detail {
+    background-color: #fff;
+}
+
 .article-title {
     text-align: center;
     color: #005da6;

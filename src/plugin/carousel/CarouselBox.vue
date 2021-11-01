@@ -11,13 +11,13 @@
         <!-- <div>{{ item.title }}</div>
         <img :src="item.imgsrc" /> -->
         <div class="art-carousel">
-          <div class="art-title">
-            <a @click="toArticleWin(item)" class="title-text">{{ item.title }}</a>
+          <div class="art-carousel-title">
+            <a @click="toArticleWin(item)" class="carousel-title-text">{{ item.title }}</a>
           </div>
-          <div class="art-summary">
+          <div class="art-carousel-summary">
             <span>{{ item.summary }}</span>
           </div>
-          <div class="art-info">
+          <div class="art-carousel-info">
             <span class="art-author">{{ item.author }}</span>
             <span class="art-createdate" style="margin-left: 10px">{{ item.createdate }}</span>
           </div>
@@ -206,17 +206,30 @@ export default {
   flex-direction: column;
 }
 
-.art-title {
+.art-carousel div {
+  padding: 0 20px;
+}
+
+.art-carousel-title {
   height: 20%;
 }
 
-.art-summary {
+.art-carousel-summary {
   height: 20%;
 }
 
-.art-info {
+.art-carousel-info {
   height: 20%;
   display: flex;
   justify-content: flex-end;
+}
+.carousel-title-text {
+  font-weight: 550;
+  color: #005da6;
+}
+
+.carousel-title-text:hover {
+  color: #fff;
+  background-color: #005da6;
 }
 </style>

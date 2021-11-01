@@ -56,6 +56,7 @@ export default {
 </script>
 <style>
 .tree ul {
+  list-style-type: none;
   list-style: none;
   overflow: hidden;
   margin-top: 5px;
@@ -63,8 +64,10 @@ export default {
 }
 
 .tree li {
+  list-style-type: none;
   list-style: none;
   overflow: hidden;
+  width:100%
 }
 
 input[type="radio"] {
@@ -77,8 +80,7 @@ input[type="radio"]:checked ~ .item-name {
 }
 
 .tree li :hover {
-  background-color: #005da6;
-  color: #fff;
+  border-left: 2px solid #005da6;
 }
 
 </style>
