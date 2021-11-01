@@ -1,8 +1,5 @@
 <template>
   <div id="blog-right">
-    <!-- <div class="blog-right-head">
-      <carousel-box :articleList="articleList"></carousel-box>
-    </div> -->
     <div v-if="curpage === 2">
       <article-detail
         :article="curArticle"
@@ -23,7 +20,7 @@
         </template>
       </my-popup>
       <div class="article-operation">
-        <button @click="openNew">新增</button>
+        <button @click="openNew">新增文章</button>
       </div>
       <div>
         <article-list
@@ -86,14 +83,15 @@ export default {
 
     const submit = (param) => {
       param.catalogid = props.catalog.id;
+      if(!param.catalogid) {
+        popup({title: "提示", msg: "请在对应的分类下新增"});
+        return;
+      }
       newArticle(param)
         .then((value) => {
           getArticles();
           data.isOpen = false;
-          popup({
-            title: "成功",
-            msg: "新增文章成功",
-          });
+          popup({ title: "成功", msg: "新增文章成功" });
         })
         .catch((error) => {
           alert("新增失败！原因：", error);
@@ -108,17 +106,15 @@ export default {
       }).then(() => {
         deleteArticle(param)
           .then((value) => {
+            if (value.code === 1) {
+              popup({ title: "失败", msg: value.errmsg });
+              return;
+            }
             getArticles();
-            popup({
-              title: "成功",
-              msg: "删除成功",
-            });
+            popup({ title: "成功", msg: "删除成功" });
           })
           .catch((error) => {
-            popup({
-              title: "失败",
-              msg: "删除失败：" + error,
-            });
+            popup({ title: "失败", msg: "删除失败：" + error });
           });
       });
     };
@@ -131,31 +127,28 @@ export default {
       param.id = data.curArticle.id;
       updateArticleContent(param)
         .then((result) => {
-          popup({
-            title: "成功",
-            msg: "保存成功",
-          });
+          if(result.code === 1) {
+            popup({ title: "失败", msg: result.errmsg });
+            return;
+          }
+          popup({ title: "成功", msg: "保存成功" });
           data.curArticle.content = value;
-          // data.curpage = 0;
         })
         .catch((error) => {
-          popup({
-            title: "失败",
-            msg: "保存失败：" + error,
-          });
+          popup({ title: "失败", msg: "保存失败：" + error });
           data.curpage = 0;
         });
     };
 
     const editArticle = (item) => {
-      getArticleContent(item).then(result => {
+      getArticleContent(item).then((result) => {
         data.curpage = 1;
         data.curArticle = result;
       });
     };
 
     const toArticle = (item) => {
-      getArticleContent(item).then(result => {
+      getArticleContent(item).then((result) => {
         data.curpage = 2;
         data.curArticle = result;
       });
@@ -169,11 +162,11 @@ export default {
             if (result.length > 0) {
               resolve(result[0]);
             } else {
-              reject("未获取到文章详情")
+              reject("未获取到文章详情");
             }
           })
           .catch((error) => {
-            reject("获取文章详情失败！error：", error)
+            reject("获取文章详情失败！error：", error);
           });
       });
     };
@@ -238,5 +231,10 @@ export default {
 .article-operation {
   padding: 0.5rem 1.5rem;
   border-bottom: 1px solid #f5f5f5;
+}
+
+.article-operation button {
+  background-color: #005da6;
+  color: #fff;
 }
 </style>

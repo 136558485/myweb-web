@@ -72,6 +72,13 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked ~ .item-name {
-  background-color: beige;
+  background-color: #005da6;
+  color: #fff;
 }
+
+.tree li :hover {
+  background-color: #005da6;
+  color: #fff;
+}
+
 </style>

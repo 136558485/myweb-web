@@ -10,9 +10,26 @@
       </template>
     </my-popup>
     <div class="item-operation">
-      <a @click="dialog(0)">新增子级</a>
-      <a @click="dialog(1)" style="margin-left: 10px">新增同级</a>
-      <a @click="deleteItem" style="margin-left: 10px">删除节点</a>
+      <div><span>分类</span></div>
+      <div class="catalog-icon">
+        <img
+          src="../../assets/icon/blog/xinzengtongji.svg"
+          alt=""
+          title="新增同级"
+          @click="dialog(1)"
+        />
+        <img
+          src="../../assets/icon/blog/xinzengziji.svg"
+          alt=""
+          title="新增子级"
+          @click="dialog(0)"
+        />
+        <img
+          src="../../assets/icon/blog/delete.svg"
+          alt=""
+          @click="deleteItem"
+        />
+      </div>
     </div>
     <div class="node-tree">
       <node-tree
@@ -61,15 +78,15 @@ export default {
         });
     };
 
-    const dialog = function (flag) {
+    const dialog = function(flag) {
       flag === 0 ? (data.title = "新增子级") : (data.title = "新增同级");
       data.isOpen = true;
     };
-    const closePop = function () {
+    const closePop = function() {
       data.isOpen = false;
     };
 
-    const newItem = function (newItemName) {
+    const newItem = function(newItemName) {
       var param = {};
       param.catalogname = newItemName;
       data.title === "新增子级"
@@ -93,7 +110,7 @@ export default {
         });
     };
 
-    const deleteItem = function () {
+    const deleteItem = function() {
       console.log("now i will delete the item");
       popup({
         title: "提示",
@@ -101,9 +118,9 @@ export default {
         isOpen: true,
         popType: "confirm",
       }).then(() => {
-        console.log("props.curItem", props.curItem)
+        console.log("props.curItem", props.curItem);
         let id = props.curItem.id;
-        let param = {id: id}
+        let param = { id: id };
         deleteCatalog(param)
           .then((result) => {
             popup({
@@ -143,10 +160,21 @@ export default {
 
 .item-operation {
   padding: 10px 20px;
-  color: #377de6;
+  /* color: #377de6; */
+  display: flex;
+  justify-content: space-between;
 }
 
-.item-operation a:hover {
-  color: #e6379d;
+.catalog-icon {
+  display: inline-flex;
+}
+
+.catalog-icon img:hover {
+  -webkit-filter: drop-shadow(0px 0px 0px #213953);
+}
+
+.catalog-icon img{
+  height: 1.3rem;
+  width: 100%;
 }
 </style>

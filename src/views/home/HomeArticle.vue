@@ -2,7 +2,6 @@
   <div id="home-article">
     <div class="carousel-head"><span>最近五篇</span><span><a @click="toBlog">更多...</a></span></div>
     <div class="carousel-box-div"><carousel-box :articleList="articleList"></carousel-box></div>
-    
   </div>
 </template>
 <script>
@@ -57,6 +56,15 @@ export default {
     justify-content: space-between;
     border-bottom: 1px solid #8a8383;
     height: 15%;
+}
+
+.carousel-head a {
+  color: #005da6;
+  border-bottom: 1px solid #005da6;
+}
+
+.carousel-head a:hover {
+  color: #afca4e;
 }
 
 .carousel-box-div {

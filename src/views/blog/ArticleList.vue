@@ -64,7 +64,8 @@ export default {
 }
 
 .art-title a:hover {
-  color: #eec08b;
+  background-color: #005da6;
+  color: #fff;
 }
 
 .title-text {
