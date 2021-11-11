@@ -27,6 +27,8 @@
           @delete-article="deleteArt"
           @edit-article="editArticle"
           @to-articledetail="toArticle"
+          @lock-article="lockArticle"
+          @unlock-article="unLockArticle"
           :articles="articleList"
         ></article-list>
       </div>
@@ -41,6 +43,8 @@ import {
   deleteArticle,
   updateArticleContent,
   getArticleDetailById,
+  lockArticleApi,
+  unLockArticleApi
 } from "../../apis/blog/article";
 import { reactive, toRefs, onMounted, watch, inject } from "vue";
 import ArticleList from "./ArticleList.vue";
@@ -171,6 +175,28 @@ export default {
       });
     };
 
+    const lockArticle = param => {
+      lockArticleApi(param).then(result => {
+        if(result.code === 1) {
+          popup({ title: "失败", msg: result.errmsg });
+          return;
+        }
+        popup({ title: "成功", msg: "操作成功" });
+        getArticles();
+      });
+    }
+
+    const unLockArticle = param => {
+      unLockArticleApi(param).then(result => {
+        if(result.code === 1) {
+          popup({ title: "失败", msg: result.errmsg });
+          return;
+        }
+        popup({ title: "成功", msg: "操作成功" });
+        getArticles();
+      });
+    }
+
     const backToArtList = () => {
       data.curpage = 0;
       getArticles();
@@ -217,6 +243,8 @@ export default {
       backToArtList,
       saveContent,
       toArticle,
+      unLockArticle,
+      lockArticle
     };
   },
 };

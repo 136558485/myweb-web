@@ -47,7 +47,7 @@ export default {
     },
     height: {
       type: String,
-      default: "200px",
+      default: "160px",
     },
     isOpen: {
       type: Boolean,
@@ -95,6 +95,7 @@ export default {
   background: rgba(0, 0, 0, 0.4);
 }
 #popup {
+  color: #6d7173;
   width: v-bind(width);
   height: v-bind(height);
   background: #fff;
