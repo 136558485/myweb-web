@@ -1,6 +1,6 @@
 <template>
   <div id="home-article">
-    <div class="carousel-head"><span>最近五篇</span><span><a @click="toBlog">更多...</a></span></div>
+    <div class="carousel-head"><span>{{$t('message.articlecarousel.last5')}}</span><span><a @click="toBlog">{{$t('message.more')}}</a></span></div>
     <div class="carousel-box-div"><carousel-box :articleList="articleList"></carousel-box></div>
   </div>
 </template>

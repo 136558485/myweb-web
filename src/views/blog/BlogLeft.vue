@@ -10,18 +10,18 @@
       </template>
     </my-popup>
     <div class="item-operation">
-      <div><span>分类</span></div>
+      <div><span>{{$t('message.article.catalog')}}</span></div>
       <div class="catalog-icon">
         <img
           src="../../assets/icon/blog/xinzengtongji.svg"
           alt=""
-          title="新增同级"
+          :title="newsibling"
           @click="dialog(1)"
         />
         <img
           src="../../assets/icon/blog/xinzengziji.svg"
           alt=""
-          title="新增子级"
+          :title="newchild"
           @click="dialog(0)"
         />
         <img
@@ -42,10 +42,11 @@
   </div>
 </template>
 <script>
-import { reactive, toRefs, onMounted } from "vue";
+import { reactive, toRefs, onMounted, getCurrentInstance } from "vue";
 import NodeTree from "../../components/nodetree/NodeTree.vue";
 import AddCatalog from "../../views/blog/AddCatalog.vue";
 import { inject } from "@vue/runtime-core";
+import { useI18n } from "vue-i18n"
 import {
   getAllCatalogs,
   newCatalog,
@@ -60,8 +61,10 @@ export default {
   setup(props, context) {
     // 通过函数调用弹窗
     const popup = inject("popup");
-
+    const { t } = useI18n();
     const data = reactive({
+      newsibling: t('message.article.newsibling'),
+      newchild: t('message.article.newchild'),
       items: [],
       floderName: "",
       isOpen: false,

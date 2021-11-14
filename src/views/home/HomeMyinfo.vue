@@ -1,9 +1,9 @@
 <template>
     <div id="home-myinfo">
-        <div>昵称：laugher</div>
-        <div>码龄：4年</div>
-        <div>技术栈：vue html css js java spring mysql oracle</div>
-        <a href="https://github.com/136558485" target="_blank">点击进入我的github</a>
+        <div>{{$t('message.userinfo.nickname')}}laugher</div>
+        <div>{{$t('message.userinfo.codeage')}}4年</div>
+        <div>{{$t('message.userinfo.technology')}}：vue html css js java spring mysql oracle</div>
+        <a href="https://github.com/136558485" target="_blank">{{$t('message.userinfo.clicktogithub')}}</a>
     </div>
 </template>
 <script>

@@ -1,11 +1,11 @@
 <template>
   <div id="top-list">
-    <div class="home" @click="clickItem('/home')"><a :class="{tabbaractive: isActive('/home')}">首页</a></div>
+    <div class="home" @click="clickItem('/home')"><a :class="{tabbaractive: isActive('/home')}">{{$t('message.home')}}</a></div>
     <div class="items">
       <ul>
         <!-- <li @click="clickItem('/intro')"><a>简历</a></li>
         <li @click="clickItem('/mind')"><a>思维导图</a></li> -->
-        <li @click="clickItem('/blog')"><a :class="{tabbaractive: isActive('/blog')}">博客</a></li>
+        <li @click="clickItem('/blog')"><a :class="{tabbaractive: isActive('/blog')}">{{$t('message.blog')}}</a></li>
       </ul>
     </div>
   </div>
